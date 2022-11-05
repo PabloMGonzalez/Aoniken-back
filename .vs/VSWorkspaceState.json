@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Aoniken",
+    "\\Aoniken\\Controllers",
+    "\\Aoniken\\Models"
   ],
-  "SelectedNode": "\\E:\\Aoniken",
+  "SelectedNode": "\\Aoniken\\Controllers\\WeatherForecastController.cs",
   "PreviewInSolutionExplorer": false
 }

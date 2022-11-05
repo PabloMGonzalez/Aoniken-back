@@ -1,4 +1,5 @@
 using Aoniken.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -24,7 +25,7 @@ namespace Aoniken.Controllers
 
         [HttpPost]
         [Route("login")]
-
+         
 
         public dynamic Login([FromBody] Object optData)
         {
@@ -86,9 +87,11 @@ namespace Aoniken.Controllers
         }
 
 
-
         [HttpPost]
         [Route("delete")]
+
+        //token valido
+        [Authorize]
         public dynamic DeletePost(Post post)
         {
 

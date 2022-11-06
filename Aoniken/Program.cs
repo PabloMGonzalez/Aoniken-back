@@ -1,3 +1,4 @@
+using Aoniken.conn;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -58,6 +59,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
     };
 });
+
+// conexion a la db
+var MySQLConfiguration = new MySQLConfiguration(builder.Configuration.GetConnectionString("MySqlConnection"));
+builder.Services.AddSingleton(MySQLConfiguration);
+
 
 var app = builder.Build();
 

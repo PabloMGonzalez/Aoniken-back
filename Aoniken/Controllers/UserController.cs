@@ -36,7 +36,7 @@ namespace Aoniken.Controllers
 
 
             // que rol de usuario soy dependiendo el user y el pass
-            User usuario = new User().DB().Where(x => x.name == user && x.password == password).FirstOrDefault();
+            User usuario = new User().DB().Where(x => x.email == user && x.password == password).FirstOrDefault();
 
 
             if (usuario == null)
@@ -60,7 +60,7 @@ namespace Aoniken.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                 new Claim("id", usuario.id.ToString()),
-                new Claim("name", usuario.name),
+                new Claim("email", usuario.email),
             };
 
             // recupero la key del jwt y la defino
@@ -88,13 +88,12 @@ namespace Aoniken.Controllers
 
 
         [HttpPost]
-        [Route("delete")]
-
+        [Route("delete_post")]
         //token valido
         [Authorize]
         public dynamic DeletePost(Post post)
         {
-
+            // validacion para eliminar posts
             var identity = HttpContext.User.Identity as ClaimsIdentity;
 
             var rToken = Jwt.validateToken(identity);
@@ -123,5 +122,26 @@ namespace Aoniken.Controllers
                 result = post
             };
         }
+
+
+
+        [HttpPost]
+        [Route("approve_post")]
+        [Authorize]
+        public dynamic approvePost()
+        {
+            return "Hola este es el metodo para aprobar posts";
+        }
+
+
+        [HttpPost]
+        [Route("comment_post")]
+        [Authorize]
+        public dynamic commentPost()
+        {
+            return "Hola este es el metodo para comentar posts";
+        }
     }
+    
+ 
 }

@@ -13,8 +13,6 @@ using Array = System.Array;
 
 namespace Aoniken.Controllers
 {
-
-
     [ApiController]
     [Route("post")]
     public class PostController : ControllerBase
@@ -39,7 +37,6 @@ namespace Aoniken.Controllers
         [Authorize]
         public dynamic listarPosts()
         {
-
             //autentico con el token y miro el rol
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var rToken = Jwt.validateToken(identity);
@@ -60,14 +57,13 @@ namespace Aoniken.Controllers
             else
             {
                 var db = dbConnection();
-                var sql = @"select p.id, p.submit_date, u.email from post p, user u where p.user_id = u.id;";
+                var sql = @"select p.id, p.title, p.content, p.submit_date, u.email from post p, user u where p.user_id = u.id;";
 
                 //retorno con Dapper
                 return db.Query(sql);
             }
 
         }
-
 
         [HttpPost]
         [Route("create_post")]
@@ -104,9 +100,52 @@ namespace Aoniken.Controllers
 
         [HttpPost]
         [Route("edit_post")]
-        public dynamic editPost(Post post)
+        [Authorize]
+        public dynamic editPost([FromBody] Object optData)
         {
-            return "aca edito los posts pa";
+            // validacion para eliminar posts
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var rToken = Jwt.validateToken(identity);
+            if (!rToken.success)
+                return rToken;
+            User usuario = rToken.result;
+
+            // me fijo q el role sea 0 asi puedo eliminar posts
+            if (usuario.role != 2)
+            {
+                return new
+                {
+                    success = false,
+                    message = "No tiene permisos paara eliminar posts",
+                    result = ""
+                };
+            }
+            else
+            {
+                var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
+
+                int id = data.id;
+                string title = "'" + data.title + "'";
+                string content = "'" + data.content + "'";
+
+                var submit_date = DateTime.Today.ToString("yyyy-MM-dd");
+                submit_date = "'" + submit_date + "'";
+
+                var db = dbConnection();
+                var sql = @"UPDATE Post SET title=" + title + ", content=" + content + ", submit_date=" + submit_date + " WHERE id=" + id;
+
+
+                //a dapper no le gusta q sean var tienen q ser string o int si o si para q te tome la consulta
+                var update = db.QueryFirstOrDefaultAsync(sql);
+
+                return new
+                {
+                    success = true,
+                    message = "Post editado con exito",
+                    result = ""
+                };
+            }
+
         }
 
         [HttpPost]
@@ -123,7 +162,7 @@ namespace Aoniken.Controllers
             User usuario = rToken.result;
 
             // me fijo q el role sea 0 asi puedo eliminar posts
-            if (usuario.role == 2)
+            if (usuario.role == 1)
             {
                 return new
                 {
@@ -167,7 +206,6 @@ namespace Aoniken.Controllers
                 }
             }
         }
-
 
         [HttpPost]
         [Route("approve_post")]
@@ -230,7 +268,6 @@ namespace Aoniken.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("reject_post")]
         [Authorize]
@@ -290,6 +327,5 @@ namespace Aoniken.Controllers
                 }
             }
         }
-
     }
 }

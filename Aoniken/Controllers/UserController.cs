@@ -38,7 +38,6 @@ namespace Aoniken.Controllers
 
         [HttpPost]
         [Route("login")]
-
         public dynamic Login([FromBody] Object optData)
         {
 
@@ -72,10 +71,7 @@ namespace Aoniken.Controllers
                 id = Convert.ToString(usuario.Result.id);
                 mail = Convert.ToString(usuario.Result.email);
                 role = Convert.ToString(usuario.Result.role);
-
-
             }
-
 
             // obtengo los datos del appsetting y los convierto a una clase
             var jwt = _configuration.GetSection("Jwt").Get<Jwt>();
@@ -115,7 +111,26 @@ namespace Aoniken.Controllers
         }
 
 
+        [HttpPost]
+        [Route("register")]
+        public dynamic Register([FromBody] Object optData)
+        {
+            var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
+
+            string email = "'" + data.email + "'";
+            string password = "'" + data.password + "'";
+
+            var db = dbConnection();
+            var sql = @"INSERT INTO User (email, password, `role`) VALUES(" + email + ", " + password + ", 2)";
+            var insert = db.Execute(sql);
+
+            return new
+            {
+                success = true,
+                message = "el usuario se creo con éxito",
+                result = ""
+            };
+        }
+
     }
-
-
 }

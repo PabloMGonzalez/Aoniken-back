@@ -10,49 +10,7 @@ namespace Aoniken.Models
         public int role { get; set; }
         //role 0 = admin
         //role 1 = editor
-        //role 2 = writer
-        public List<User> DB()
-        {
-            var list = new List<User>()
-            {
-                new User
-                {
-                    id = 1,
-                    email = "Pablo",
-                    password = "sarasa09",
-                    role = 0
-                },
-                 new User
-                {
-                    id = 2,
-                    email = "German",
-                    password = "sarasa09",
-                    role = 1
-                },
-                  new User
-                {
-                    id = 3,
-                    email = "Jose",
-                    password = "sarasa09",
-                    role = 1
-                },
-                   new User
-                {
-                    id = 4,
-                    email = "Martin",
-                    password = "sarasa09",
-                    role = 2
-                },
-                    new User
-                {
-                    id = 5,
-                    email = "Andrea",
-                    password = "sarasa09",
-                    role = 1
-                }
-            };
-            return list;
-        }
+        //role 2 = writer       
 
         public static implicit operator User(ClaimsPrincipal v)
         {

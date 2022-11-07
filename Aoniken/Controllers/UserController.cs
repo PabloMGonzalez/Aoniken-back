@@ -1,8 +1,12 @@
+using Aoniken.conn;
 using Aoniken.Models;
+using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using System.Dynamic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -16,30 +20,47 @@ namespace Aoniken.Controllers
 
     public class UserController : ControllerBase
     {
-
+        private readonly MySQLConfiguration _connectionString;
         public IConfiguration _configuration;
-        public UserController(IConfiguration configuration)
+
+        public UserController(IConfiguration configuration, MySQLConfiguration connectionString)
         {
             _configuration = configuration;
+            _connectionString = connectionString;
+
         }
+
+        // referencio a la db
+        #region 
+
+        protected MySqlConnection dbConnection()
+        {
+            return new MySqlConnection(_connectionString.ConnectionString);
+        }
+        #endregion
 
         [HttpPost]
         [Route("login")]
-         
 
-        public dynamic Login([FromBody] Object optData)
-        {
+
+        public dynamic Login([FromBody] Object optData)       {
+
+
             var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
 
-            string password = data.password;
-            string user = data.usuario;
-
+            string email = "'" + data.email + "'";
+            string password = "'" + data.password + "'";
 
             // que rol de usuario soy dependiendo el user y el pass
-            User usuario = new User().DB().Where(x => x.email == user && x.password == password).FirstOrDefault();
+            var db = dbConnection();
+            var sql = @"SELECT id FROM user WHERE email = " + email + "AND password = " + password;
 
+            //retorno con Dapper  
+            var usuario = db.QueryFirstOrDefaultAsync(sql);
 
-            if (usuario == null)
+            string id;
+
+            if (usuario.Result == null)
             {
                 return new
                 {
@@ -47,6 +68,10 @@ namespace Aoniken.Controllers
                     message = "Credenciales incorrectas",
                     result = ""
                 };
+            } else
+            {
+                id = Convert.ToString(usuario.Result.id);
+
             }
 
             // obtengo los datos del appsetting y los convierto a una clase
@@ -59,8 +84,8 @@ namespace Aoniken.Controllers
                 new Claim(JwtRegisteredClaimNames.Sub, jwt.Subject),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                new Claim("id", usuario.id.ToString()),
-                new Claim("email", usuario.email),
+                new Claim("id", id),
+                new Claim("email", data.email),
             };
 
             // recupero la key del jwt y la defino
@@ -142,6 +167,6 @@ namespace Aoniken.Controllers
             return "Hola este es el metodo para comentar posts";
         }
     }
-    
- 
+
+
 }

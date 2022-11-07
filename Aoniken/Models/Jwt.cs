@@ -31,7 +31,7 @@ namespace Aoniken.Models
                 // recupero el usuario por el id para identificarlo
                 User usuario = new User();
                 usuario.id = int.Parse(id);
-                usuario = usuario.DB().FirstOrDefault(x => x.id == int.Parse(id));
+                //usuario = usuario.DB().FirstOrDefault(x => x.id == int.Parse(id));
 
 
                 return new

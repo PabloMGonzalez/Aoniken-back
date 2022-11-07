@@ -71,9 +71,35 @@ namespace Aoniken.Controllers
 
         [HttpPost]
         [Route("create_post")]
-        public dynamic savePost(Post post)
+        [Authorize]
+        public dynamic savePost([FromBody] Object optData)
         {
-            return "aca guardo los posts pa";
+            //autentico con el token y miro el rol
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var rToken = Jwt.validateToken(identity);
+            if (!rToken.success)
+                return rToken;
+            User usuario = rToken.result;
+
+            var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
+
+            int user_id = data.user_id;
+            string title = data.title;
+            string content = data.content;
+
+            var submit_date = DateTime.Today.ToString("yyyy-MM-dd");
+
+            var db = dbConnection();
+            var sql = @"INSERT INTO Post(title, content, submit_date, pending_approval, approve_date, user_id)
+                        VALUES('" + title + "', '" + content + "', '" + submit_date + "', 0, NULL, " + user_id + ")";
+            var insert = db.Execute(sql);
+
+            return new
+            {
+                success = true,
+                message = "el post se creo con éxito",
+                result = ""
+            };
         }
 
         [HttpPost]
@@ -146,7 +172,6 @@ namespace Aoniken.Controllers
         [HttpPost]
         [Route("approve_post")]
         [Authorize]
-
         public dynamic approvePost([FromBody] Object optData)
         {
 

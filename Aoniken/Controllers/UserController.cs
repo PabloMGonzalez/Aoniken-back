@@ -42,9 +42,8 @@ namespace Aoniken.Controllers
         [HttpPost]
         [Route("login")]
 
-
-        public dynamic Login([FromBody] Object optData)       {
-
+        public dynamic Login([FromBody] Object optData)
+        {
 
             var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
 
@@ -53,12 +52,14 @@ namespace Aoniken.Controllers
 
             // que rol de usuario soy dependiendo el user y el pass
             var db = dbConnection();
-            var sql = @"SELECT id FROM user WHERE email = " + email + "AND password = " + password;
+            var sql = @"SELECT id,email,role FROM user WHERE email = " + email + "AND password = " + password;
 
             //retorno con Dapper  
             var usuario = db.QueryFirstOrDefaultAsync(sql);
 
             string id;
+            string mail;
+            string role;
 
             if (usuario.Result == null)
             {
@@ -68,15 +69,19 @@ namespace Aoniken.Controllers
                     message = "Credenciales incorrectas",
                     result = ""
                 };
-            } else
+            }
+            else
             {
                 id = Convert.ToString(usuario.Result.id);
+                mail = Convert.ToString(usuario.Result.email);
+                role = Convert.ToString(usuario.Result.role);
+
 
             }
 
+
             // obtengo los datos del appsetting y los convierto a una clase
             var jwt = _configuration.GetSection("Jwt").Get<Jwt>();
-
 
             // defino los claims para el token
             var claims = new[]
@@ -85,7 +90,8 @@ namespace Aoniken.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                 new Claim("id", id),
-                new Claim("email", data.email),
+                new Claim("email", mail),
+                new Claim("role", role),
             };
 
             // recupero la key del jwt y la defino
@@ -112,60 +118,6 @@ namespace Aoniken.Controllers
         }
 
 
-        [HttpPost]
-        [Route("delete_post")]
-        //token valido
-        [Authorize]
-        public dynamic DeletePost(Post post)
-        {
-            // validacion para eliminar posts
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            var rToken = Jwt.validateToken(identity);
-
-
-            if (!rToken.success)
-                return rToken;
-
-            User usuario = rToken.result;
-
-
-            if (usuario.role != 0)
-            {
-                return new
-                {
-                    success = false,
-                    message = "No tiene permisos paara eliminar posts",
-                    result = ""
-                };
-            }
-
-            return new
-            {
-                succes = true,
-                message = "post eliminado",
-                result = post
-            };
-        }
-
-
-
-        [HttpPost]
-        [Route("approve_post")]
-        [Authorize]
-        public dynamic approvePost()
-        {
-            return "Hola este es el metodo para aprobar posts";
-        }
-
-
-        [HttpPost]
-        [Route("comment_post")]
-        [Authorize]
-        public dynamic commentPost()
-        {
-            return "Hola este es el metodo para comentar posts";
-        }
     }
 
 

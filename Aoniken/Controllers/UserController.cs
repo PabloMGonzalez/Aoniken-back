@@ -1,14 +1,11 @@
 using Aoniken.conn;
 using Aoniken.Models;
 using Dapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
-using System.Dynamic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 

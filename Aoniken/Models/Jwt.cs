@@ -1,5 +1,4 @@
-﻿using System.Net.Mail;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
 namespace Aoniken.Models
 {

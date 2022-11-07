@@ -3,13 +3,9 @@ using Aoniken.Models;
 using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing.Matching;
-using Microsoft.VisualBasic;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
-using NHibernate.Mapping;
 using System.Security.Claims;
-using Array = System.Array;
 
 namespace Aoniken.Controllers
 {

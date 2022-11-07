@@ -4,7 +4,7 @@
     {
         public int id { get; set; }
         public int user_id { get; set; }
-        public int user_post { get; set; }
+        public int post_id { get; set; }
         public string content { get; set; }
 
     }

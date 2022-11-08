@@ -106,6 +106,7 @@ namespace Aoniken.Controllers
             {
                 succes = true,
                 message = "exito",
+                id = id,
                 result = new JwtSecurityTokenHandler().WriteToken(token)
             };
         }
@@ -128,7 +129,7 @@ namespace Aoniken.Controllers
             return new
             {
                 success = true,
-                message = "el usuario se creo con �xito",
+                message = "el usuario se creo con exito",
                 result = ""
             };
         }

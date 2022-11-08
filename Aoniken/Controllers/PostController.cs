@@ -75,21 +75,21 @@ namespace Aoniken.Controllers
 
             var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
 
-            int user_id = data.user_id;
+
             string title = data.title;
             string content = data.content;
-
             var submit_date = DateTime.Today.ToString("yyyy-MM-dd");
+            int user_id = data.user_id;
 
             var db = dbConnection();
-            var sql = @"INSERT INTO Post(title, content, submit_date, pending_approval, approve_date, user_id)
+            var sql = @"INSERT INTO post(title, content, submit_date, pending_approval, approve_date, user_id)
                         VALUES('" + title + "', '" + content + "', '" + submit_date + "', 0, NULL, " + user_id + ")";
             var insert = db.Execute(sql);
 
             return new
             {
                 success = true,
-                message = "el post se creo con éxito",
+                message = "el post se creo con exito",
                 result = ""
             };
         }

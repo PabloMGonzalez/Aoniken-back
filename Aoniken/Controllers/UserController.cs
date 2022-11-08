@@ -119,15 +119,16 @@ namespace Aoniken.Controllers
 
             string email = "'" + data.email + "'";
             string password = "'" + data.password + "'";
+            string nombre = "'" + data.nombre + "'";
 
             var db = dbConnection();
-            var sql = @"INSERT INTO User (email, password, `role`) VALUES(" + email + ", " + password + ", 2)";
+            var sql = @"INSERT INTO user (nombre, email, password, `role`) VALUES(" + nombre + "," + email + ", " + password + ", 2)";
             var insert = db.Execute(sql);
 
             return new
             {
                 success = true,
-                message = "el usuario se creo con éxito",
+                message = "el usuario se creo con ï¿½xito",
                 result = ""
             };
         }

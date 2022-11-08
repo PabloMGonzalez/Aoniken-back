@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,37 +12,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    // Titulo
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Aoniken Api", Version = "v1" });
-
-    //Boton Authorize
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = "Jwt Auth",
-        Name = "Auth",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-        new OpenApiSecurityScheme
-        {
-            Reference = new OpenApiReference
-            {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-            }
-        },
-        new String[] { }
-         }
-    });
+builder.Services.AddSwaggerGen(c =>{     
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Aoniken Api", Version = "v1" }); 
 });
 
+//addCors
+var proveedor = builder.Services.BuildServiceProvider(); 
+var configuration = proveedor.GetRequiredService<IConfiguration>();
 
+builder.Services.AddCors(options =>
+{
+    var frontendURL = configuration.GetValue<string>("frontend_url") ;
+
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins(frontendURL).AllowAnyMethod().AllowAnyHeader();
+
+    });
+});
 
 
 // implementacion de JWT y valida segun los parametros del appsettings.json
@@ -75,9 +63,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 // implementa la autenticacion
 app.UseAuthentication();
+
+//implementa cors
+app.UseCors();
 
 app.UseAuthorization();
 

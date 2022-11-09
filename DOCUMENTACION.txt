@@ -1,0 +1,61 @@
+api hecha en netcore 6 con c#
+mini orm Dapper
+conexion a mysql
+autorizacion con JWT
+
+USER ROLES 
+//role 0 = admin
+//role 1 = editor
+//role 2 = writer  
+
+POST PENDING APPROVAL
+//pending_approval 0 = a la espera que se apruebe
+//pending_approval 1 = no se aprobo, se puede volver a editar
+//pending_approval 2 = se aprobo
+
+PARAMETROS
+/user/login
+{
+    "email":"string",
+    "password":"string"
+}
+
+/user/register
+{
+    "nombre":"string",
+    "email":"string",
+    "password":"string"
+}
+
+/post/listar_post
+{}
+
+/post/create_post
+{
+  "user_id": int,
+  "title": "string",
+  "content": "string",
+}
+
+/post/edit_post
+{
+  "id": int,
+  "title": "string",
+  "content": "string"  
+}
+
+/post/delete_post
+{
+  "id": int
+}
+
+/post/approve_post
+{
+  "id": int
+}
+
+/post/reject_post
+{
+  "id": int
+}
+

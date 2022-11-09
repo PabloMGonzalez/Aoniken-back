@@ -1,0 +1,29 @@
+devolver si hay un email ya usado
+
+POST
+id
+titulo
+autor = user_id
+pendig approval : bool
+approval date
+
+
+USER
+id
+nombre
+rol = editor o writer
+edit post
+{}
+login
+aprove
+delete
+post comment
+
+COMENTARIO
+post_id
+user_id
+content
+
+
+api rest
+endpoints aprove and reject

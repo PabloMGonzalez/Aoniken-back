@@ -29,13 +29,9 @@ namespace Aoniken.Models
 
                 var id = identity.Claims.FirstOrDefault(x => x.Type == "id").Value;
 
+                string mail = identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;             
 
-                string mail = identity.Claims.FirstOrDefault(
-                             c => c.Type == ClaimTypes.Email)?.Value;
-             
-
-                string role = identity.Claims.FirstOrDefault(
-                        c => c.Type == ClaimTypes.Role)?.Value;
+                string role = identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
              
 
                 // recupero el usuario por el id para identificarlo
@@ -43,7 +39,6 @@ namespace Aoniken.Models
                 usuario.id = int.Parse(id);
                 usuario.email = mail;
                 usuario.role = int.Parse(role);
-
 
                 return new
                 {
@@ -54,7 +49,6 @@ namespace Aoniken.Models
             }
             catch (Exception error)
             {
-
                 return new
                 {
                     success = false,

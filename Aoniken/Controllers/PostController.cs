@@ -53,7 +53,7 @@ namespace Aoniken.Controllers
             else
             {
                 var db = dbConnection();
-                var sql = @"select p.id, p.title, p.content, p.submit_date, u.email from post p, user u where p.user_id = u.id;";
+                var sql = @"select p.id, p.title, p.content, p.submit_date, u.nombre from post p, user u where p.user_id = u.id;";
 
                 //retorno con Dapper
                 return db.Query(sql);

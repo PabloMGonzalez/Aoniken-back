@@ -53,7 +53,7 @@ namespace Aoniken.Controllers
             else
             {
                 var db = dbConnection();
-                var sql = @"select p.id, p.title, p.content, p.submit_date, u.nombre from post p, user u where p.user_id = u.id;";
+                var sql = @"select p.id, p.title, p.content, p.submit_date, u.nombre from post p, user u where p.user_id = u.id and p.pending_approval = 0;";
 
                 //retorno con Dapper
                 return db.Query(sql);
@@ -231,9 +231,8 @@ namespace Aoniken.Controllers
                 var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
 
                 int id = data.id;
-                // hago un select de la tabla para ver si existe el post realmente, si existe lo elimino, sino mando un msj
                 var db = dbConnection();
-                var sql = @" SELECT id FROM Post WHERE id =" + id + " AND pending_approval = 0";
+                var sql = @" SELECT id FROM post WHERE id =" + id;
                 var select = db.QueryFirstOrDefaultAsync(sql);
                 if (select.Result != null)
                 {
@@ -241,7 +240,7 @@ namespace Aoniken.Controllers
                     var date = DateTime.Today.ToString("yyyy-MM-dd");
                     date = "'" + date + "'";
 
-                    var sqlUpdate = @"UPDATE Post SET pending_approval = 2, approve_date = " + date + " WHERE id=" + id;
+                    var sqlUpdate = @"UPDATE post SET pending_approval = 2, approve_date = " + date + " WHERE id=" + id;
                     var update = db.QueryFirstOrDefaultAsync(sqlUpdate);
 
                     return new
@@ -293,7 +292,7 @@ namespace Aoniken.Controllers
                 int id = data.id;
                 // hago un select de la tabla para ver si existe el post realmente, si existe lo elimino, sino mando un msj
                 var db = dbConnection();
-                var sql = @" SELECT id FROM Post WHERE id =" + id + " AND pending_approval = 0";
+                var sql = @" SELECT id FROM post WHERE id =" + id ;
                 var select = db.QueryFirstOrDefaultAsync(sql);
                 if (select.Result != null)
                 {
@@ -301,7 +300,7 @@ namespace Aoniken.Controllers
                     var date = DateTime.Today.ToString("yyyy-MM-dd");
                     date = "'" + date + "'";
 
-                    var sqlUpdate = @"UPDATE Post SET pending_approval = 1, approve_date = " + date + " WHERE id=" + id;
+                    var sqlUpdate = @"UPDATE post SET pending_approval = 1, approve_date = " + date + " WHERE id=" + id;
                     var update = db.QueryFirstOrDefaultAsync(sqlUpdate);
 
                     return new

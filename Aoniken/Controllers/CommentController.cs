@@ -51,7 +51,7 @@ namespace Aoniken.Controllers
             var submit_date = DateTime.Today.ToString("yyyy-MM-dd");
 
             var db = dbConnection();
-            var sql = @"INSERT INTO Comment (content, user_id, post_id) VALUES('"+content+"', "+user_id+", "+post_id+")";
+            var sql = @"INSERT INTO comment (content, user_id, post_id) VALUES('"+content+"', "+user_id+", "+post_id+")";
             var insert = db.Execute(sql);
 
             return new

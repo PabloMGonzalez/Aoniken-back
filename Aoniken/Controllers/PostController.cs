@@ -98,7 +98,7 @@ namespace Aoniken.Controllers
             else
             {
                 var db = dbConnection();
-                var sql = @"select id, title, content, submit_date from post where user_id =" + usuario.id;
+                var sql = @"select id, title, content, submit_date from post where pending_approval = 0 and user_id =" + usuario.id;
 
                 //retorno con Dapper
                 return db.Query(sql);
@@ -174,7 +174,7 @@ namespace Aoniken.Controllers
                 submit_date = "'" + submit_date + "'";
 
                 var db = dbConnection();
-                var sql = @"UPDATE Post SET title=" + title + ", content=" + content + ", submit_date=" + submit_date + " WHERE id=" + id;
+                var sql = @"UPDATE post SET title=" + title + ", content=" + content + ", submit_date=" + submit_date + ",pending_approval=0 WHERE id=" + id;
 
 
                 //a dapper no le gusta q sean var tienen q ser string o int si o si para q te tome la consulta

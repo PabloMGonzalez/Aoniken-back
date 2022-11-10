@@ -107,6 +107,7 @@ namespace Aoniken.Controllers
                 succes = true,
                 message = "exito",
                 id = id,
+                role = role,
                 result = new JwtSecurityTokenHandler().WriteToken(token)
             };
         }

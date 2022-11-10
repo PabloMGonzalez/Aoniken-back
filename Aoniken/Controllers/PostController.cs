@@ -98,7 +98,7 @@ namespace Aoniken.Controllers
             else
             {
                 var db = dbConnection();
-                var sql = @"select id, title, content, submit_date from post where user_id =" + usuario.id ;
+                var sql = @"select id, title, content, submit_date from post where user_id =" + usuario.id;
 
                 //retorno con Dapper
                 return db.Query(sql);
@@ -367,6 +367,29 @@ namespace Aoniken.Controllers
 
                 }
             }
+        }
+
+        [HttpPost]
+        [Route("select_post")]
+        [Authorize]
+        public dynamic selectPost([FromBody] Object optData)
+        {
+
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var rToken = Jwt.validateToken(identity);
+            if (!rToken.success)
+                return rToken;
+            User usuario = rToken.result;
+
+
+            var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
+
+            int id = data.id;
+            var db = dbConnection();
+            var sql = @"select * from post where id =" + id;
+
+            //retorno con Dapper
+            return db.Query(sql);
         }
     }
 }

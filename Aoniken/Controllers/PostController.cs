@@ -28,10 +28,25 @@ namespace Aoniken.Controllers
         }
         #endregion
 
+
+
         [HttpGet]
-        [Route("listar_post")]
+        [Route("list_approved_posts")]
+        public dynamic listPostsApproved()
+        {
+
+            var db = dbConnection();
+            var sql = @"select p.id, p.title, p.content, p.submit_date, u.nombre from post p, user u where p.user_id = u.id and p.pending_approval = 2;";
+
+            //retorno con Dapper
+            return db.Query(sql);
+
+        }
+
+        [HttpGet]
         [Authorize]
-        public dynamic listarPosts()
+        [Route("list_pending_approval_posts")]
+        public dynamic listPostsPendingApproval()
         {
             //autentico con el token y miro el rol
             var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -40,7 +55,7 @@ namespace Aoniken.Controllers
                 return rToken;
             User usuario = rToken.result;
 
-            // me fijo q el role sea 0 asi puedo listar posts
+            // me fijo q el role sea 0 asi puedo listar posts para aprobar
             if (usuario.role == 2)
             {
                 return new
@@ -58,7 +73,36 @@ namespace Aoniken.Controllers
                 //retorno con Dapper
                 return db.Query(sql);
             }
+        }
 
+        [HttpGet]
+        [Route("list_unapproved_posts")]
+        [Authorize]
+        public dynamic ListUnapprovedPosts()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var rToken = Jwt.validateToken(identity);
+            if (!rToken.success)
+                return rToken;
+            User usuario = rToken.result;
+
+            if (usuario.role == 1)
+            {
+                return new
+                {
+                    success = false,
+                    message = "No tiene permisos paara listar posts",
+                    result = ""
+                };
+            }
+            else
+            {
+                var db = dbConnection();
+                var sql = @"select id, title, content, submit_date from post where user_id =" + usuario.id ;
+
+                //retorno con Dapper
+                return db.Query(sql);
+            }
         }
 
         [HttpPost]
@@ -94,25 +138,27 @@ namespace Aoniken.Controllers
             };
         }
 
+
+
         [HttpPost]
         [Route("edit_post")]
         [Authorize]
         public dynamic editPost([FromBody] Object optData)
         {
-            // validacion para eliminar posts
+            // validacion para editar posts
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var rToken = Jwt.validateToken(identity);
             if (!rToken.success)
                 return rToken;
             User usuario = rToken.result;
 
-            // me fijo q el role sea 0 asi puedo eliminar posts
-            if (usuario.role != 2)
+            // me fijo q el role sea 0 asi puedo editar posts
+            if (usuario.role == 1)
             {
                 return new
                 {
                     success = false,
-                    message = "No tiene permisos paara eliminar posts",
+                    message = "No tiene permisos paara editar posts",
                     result = ""
                 };
             }
@@ -292,7 +338,7 @@ namespace Aoniken.Controllers
                 int id = data.id;
                 // hago un select de la tabla para ver si existe el post realmente, si existe lo elimino, sino mando un msj
                 var db = dbConnection();
-                var sql = @" SELECT id FROM post WHERE id =" + id ;
+                var sql = @" SELECT id FROM post WHERE id =" + id;
                 var select = db.QueryFirstOrDefaultAsync(sql);
                 if (select.Result != null)
                 {

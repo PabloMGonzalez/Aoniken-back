@@ -2305,19 +2305,19 @@
     ]
   },
   "packageFolders": {
-    "/home/pablo/.nuget/packages/": {}
+    "/home/pm/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/pablo/proyectos/aoniken/Aoniken-back/Aoniken/Aoniken.csproj",
+      "projectUniqueName": "/home/pm/test/Aoniken-back/Aoniken/Aoniken.csproj",
       "projectName": "Aoniken",
-      "projectPath": "/home/pablo/proyectos/aoniken/Aoniken-back/Aoniken/Aoniken.csproj",
-      "packagesPath": "/home/pablo/.nuget/packages/",
-      "outputPath": "/home/pablo/proyectos/aoniken/Aoniken-back/Aoniken/obj/",
+      "projectPath": "/home/pm/test/Aoniken-back/Aoniken/Aoniken.csproj",
+      "packagesPath": "/home/pm/.nuget/packages/",
+      "outputPath": "/home/pm/test/Aoniken-back/Aoniken/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/pablo/.nuget/NuGet/NuGet.Config"
+        "/home/pm/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"

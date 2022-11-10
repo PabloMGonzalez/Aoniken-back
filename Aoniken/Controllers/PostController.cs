@@ -391,5 +391,8 @@ namespace Aoniken.Controllers
             //retorno con Dapper
             return db.Query(sql);
         }
+
+
+        
     }
 }

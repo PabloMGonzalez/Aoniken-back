@@ -62,20 +62,5 @@ namespace Aoniken.Controllers
             };
         }
 
-        [HttpPost]
-        [Route("get_comments")]
-        public dynamic getComments([FromBody] Object optData)
-        {
-
-            var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
-
-            int id = data.id;
-            var db = dbConnection();
-            var sql = @"select content from comment where post_id =" + id;
-
-            //retorno con Dapper
-            return db.Query(sql);
-        }
-
     }
 }

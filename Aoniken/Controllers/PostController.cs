@@ -36,7 +36,7 @@ namespace Aoniken.Controllers
         {
 
             var db = dbConnection();
-            var sql = @"select p.id, p.title, p.content, p.submit_date, u.nombre from post p, user u where p.user_id = u.id and p.pending_approval = 2;";
+            var sql = @"select p.id, p.title, p.content, p.submit_date, u.nombre, c.content  from post p  inner join user u  inner join comment c where p.user_id = u.id and p.pending_approval = 2 and c.post_id = p.id;";
 
             //retorno con Dapper
             return db.Query(sql);

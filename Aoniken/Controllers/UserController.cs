@@ -104,7 +104,7 @@ namespace Aoniken.Controllers
 
             return new
             {
-                succes = true,
+                success = true,
                 message = "exito",
                 id = id,
                 role = role,

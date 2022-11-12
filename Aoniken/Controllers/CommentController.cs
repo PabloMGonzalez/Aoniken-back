@@ -64,15 +64,13 @@ namespace Aoniken.Controllers
 
         [HttpPost]
         [Route("get_comments")]
-        public dynamic getComments([FromBody] Object optData)
+        public dynamic getComments()
         {
 
-            var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
-
-            int id = data.id;
+        
             var db = dbConnection();
-            var sql = @"select content from comment where post_id =" + id;
-
+            var sql = @"SELECT * FROM comment c INNER JOIN post p WHERE c.post_id  = p.id GROUP BY c.id;";
+            
             //retorno con Dapper
             return db.Query(sql);
         }

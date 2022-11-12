@@ -60,7 +60,21 @@ namespace Aoniken.Controllers
                 message = "el comentario se creo con éxito",
                 result = ""
             };
+        }  
+
+        [HttpGet]
+        [Route("list_comments")]
+        public dynamic listPostsApproved()
+        {
+
+            var db = dbConnection();
+            var sql = @"SELECT c.id, c.content, p.id, u.nombre FROM comment c INNER JOIN post p INNER JOIN user u WHERE c.post_id = p.id AND p.user_id = u.id GROUP BY c.id;";
+
+            //retorno con Dapper
+            return db.Query(sql);
+
         }
+    
 
     }
 }

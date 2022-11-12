@@ -62,15 +62,19 @@ namespace Aoniken.Controllers
             };
         }  
 
-        [HttpGet]
+        [HttpPost]
         [Route("list_comments")]
-        public dynamic listPostsApproved()
+        public dynamic getComments([FromBody] Object optData)
         {
+
+            var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
+
+            int id = data.id;
             var db = dbConnection();
-            var sql = @"SELECT c.id, c.content, p.id, u.nombre FROM comment c INNER JOIN post p INNER JOIN user u WHERE c.post_id = p.id AND c.user_id = u.id GROUP BY c.id;";
+            var sql = @"select c.content, u.nombre from comment c inner join user u where c.user_id = u.id and post_id =" + id;
+
             //retorno con Dapper
             return db.Query(sql);
-
         }
     
 

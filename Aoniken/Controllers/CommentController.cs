@@ -62,6 +62,7 @@ namespace Aoniken.Controllers
             };
         }
 
+<<<<<<< HEAD
         [HttpPost]
         [Route("get_comments")]
         public dynamic getComments()
@@ -76,5 +77,7 @@ namespace Aoniken.Controllers
             return db.Query(sql);
         }
 
+=======
+>>>>>>> 2a8cf25545df1d836d75cb480ddcd53a0e19f94f
     }
 }

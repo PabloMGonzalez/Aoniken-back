@@ -62,22 +62,5 @@ namespace Aoniken.Controllers
             };
         }
 
-<<<<<<< HEAD
-        [HttpPost]
-        [Route("get_comments")]
-        public dynamic getComments()
-        {
-
-        
-            var db = dbConnection();
-            var sql = @"SELECT c.id, c.content, p.id, u.nombre FROM comment c INNER JOIN post p INNER JOIN user u WHERE c.post_id = p.id AND p.user_id = u.id GROUP BY c.id;
-";
-            
-            //retorno con Dapper
-            return db.Query(sql);
-        }
-
-=======
->>>>>>> 2a8cf25545df1d836d75cb480ddcd53a0e19f94f
     }
 }

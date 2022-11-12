@@ -386,7 +386,7 @@ namespace Aoniken.Controllers
 
             int id = data.id;
             var db = dbConnection();
-            var sql = @"select * from post where id =" + id;
+            var sql = @"select content from comment c inner join post p where c.post_id  = " + id;
 
             //retorno con Dapper
             return db.Query(sql);

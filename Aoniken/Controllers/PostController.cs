@@ -34,13 +34,10 @@ namespace Aoniken.Controllers
         [Route("list_approved_posts")]
         public dynamic listPostsApproved()
         {
-
             var db = dbConnection();
             var sql = @"select p.id, p.title, p.content, p.submit_date, u.nombre, c.content  from post p  inner join user u  inner join comment c where p.user_id = u.id and p.pending_approval = 2 and c.post_id = p.id;";
-
             //retorno con Dapper
             return db.Query(sql);
-
         }
 
         [HttpGet]

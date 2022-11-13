@@ -58,7 +58,7 @@ namespace Aoniken.Controllers
             //HAGO LA CONEXION A LA DB
             var db = dbConnection();
             //HAGO UNA CONSULTA UTILIZANDO PARAMETROS
-            var sql = @"select c.content, p.id, u.nombre from comment c inner join post p on c.post_id = p.id left join user u on c.user_id = u.id;";
+            var sql = @"select c.content, p.id, u.nombre from comment c inner join post p on c.post_id = p.id left join user u on c.user_id = u.id where p.pending_approval = 2";
             //RETORNO CON DAPPER UTILIZANDO PARAMETROS
             return db.Query(sql);
        

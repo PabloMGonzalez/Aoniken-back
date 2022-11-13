@@ -17,45 +17,30 @@ namespace Aoniken.Controllers
 
     public class UserController : ControllerBase
     {
+        //REFERENCIO A LA DB PARA PODER USARLA
         private readonly MySQLConfiguration _connectionString;
         public IConfiguration _configuration;
-
         public UserController(IConfiguration configuration, MySQLConfiguration connectionString)
         {
             _configuration = configuration;
             _connectionString = connectionString;
-
         }
-
-        // referencio a la db
-        #region 
-
         protected MySqlConnection dbConnection()
         {
             return new MySqlConnection(_connectionString.ConnectionString);
         }
-        #endregion
 
+        //ENDPOINT LOGIN
         [HttpPost]
         [Route("login")]
-        public dynamic Login([FromBody] Object optData)
+        public dynamic Login(User user)
         {
-
-            var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
-
-            string email = "'" + data.email + "'";
-            string password = "'" + data.password + "'";
-
-            // que rol de usuario soy dependiendo el user y el pass
+            //HAGO LA CONEXION A LA DB
             var db = dbConnection();
-            var sql = @"SELECT id,email,role FROM user WHERE email = " + email + "AND password = " + password;
-
-            //retorno con Dapper  
-            var usuario = db.QueryFirstOrDefaultAsync(sql);
-
-            string id;
-            string mail;
-            string role;
+            //HAGO LA CONSULTA UTILIZANDO PARAMETROS
+            var sql = @"SELECT id,email,role FROM user WHERE email = @email AND password = @password";
+            //RETORNO CON DAPPER UTILIZANDO PARAMETROS
+            var usuario = db.QueryFirstOrDefaultAsync(sql, user);
 
             if (usuario.Result == null)
             {
@@ -66,34 +51,28 @@ namespace Aoniken.Controllers
                     result = ""
                 };
             }
-            else
-            {
-                id = Convert.ToString(usuario.Result.id);
-                mail = Convert.ToString(usuario.Result.email);
-                role = Convert.ToString(usuario.Result.role);
-            }
 
-            // obtengo los datos del appsetting y los convierto a una clase
+            //OBTENGO LOS DATOS DEL APPSETTING Y DECLARO EN UNA VARIABLE
             var jwt = _configuration.GetSection("Jwt").Get<Jwt>();
 
-            // defino los claims para el token
+            //DEFINO LOS CLAIMS PARA LOS JWT
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, jwt.Subject),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                new Claim("id", id),
-                new Claim("email", mail),
-                new Claim("role", role),
+                new Claim("id", usuario.Result.id.ToString()),
+                new Claim("email", usuario.Result.email.ToString()),
+                new Claim("role", usuario.Result.role.ToString()),
             };
 
-            // recupero la key del jwt y la defino
+            //RECUPERO LA KEY DEL JWT Y LA DEFINO
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key));
 
-            // encripto la jwt key
+            //ENCRIPTO LA JWT
             var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256.ToString());
 
-            // armo el token usando los claim el issuer la auidence y la expiracion luego lo recupero desde el post
+            //ARMO EL TOKEN USANDO LOS CLAIMS EL ISSUER LA AUDIENCE Y LA EXPIRACION LUEGO LO RECUPERO DESDE EL POST
             var token = new JwtSecurityToken(
                 jwt.Issuer,
                 jwt.Audience,
@@ -106,26 +85,26 @@ namespace Aoniken.Controllers
             {
                 success = true,
                 message = "exito",
-                id = id,
-                role = role,
+                id = usuario.Result.id,
+                role = usuario.Result.role,
+                //MANDO EL RESULTADO CON EL TOKEN VALIDO
                 result = new JwtSecurityTokenHandler().WriteToken(token)
             };
         }
 
-
+        //ENDPOINT REGISTER
         [HttpPost]
         [Route("register")]
         public dynamic Register([FromBody] Object optData)
         {
+            //DESERIALIZO EL OBJETO A UN JSON
             var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
-
-            string email = "'" + data.email + "'";
-            string password = "'" + data.password + "'";
-            string nombre = "'" + data.nombre + "'";
-
+            //HAGO LA CONEXION A LA DB
             var db = dbConnection();
-            var sql = @"INSERT INTO user (nombre, email, password, `role`) VALUES(" + nombre + "," + email + ", " + password + ", 2)";
-            var insert = db.Execute(sql);
+            //HAGO UN INSERT UTILIZANDO PARAMETROS
+            var sql = @"INSERT INTO user (nombre, email, password, `role`) VALUES(@nombre, @email, @password, 2)";
+            //EJECUTO DAPPER UTILIZANDO PARAMETROS
+            var insert = db.Execute(sql, new { nombre = data.nombre, email = data.email, password = data.password, role = data.role });
 
             return new
             {

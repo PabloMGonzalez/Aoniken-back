@@ -1,29 +1,28 @@
-devolver si hay un email ya usado
-
-POST
-id
-titulo
-autor = user_id
-pendig approval : bool
-approval date
+falta
+listar los comentarios
+implementar mejor dapper
+boton delete
+luego de editar va a un url raro
 
 
-USER
-id
-nombre
-rol = editor o writer
-edit post
-{}
-login
-aprove
-delete
-post comment
-
-COMENTARIO
-post_id
-user_id
-content
 
 
-api rest
-endpoints aprove and reject
+
+cosas para poner a andar
+netcore 6
+visual community
+visual studio (linux)
+
+
+install axios
+import { useLocalStorage } from 'react-use';
+
+install chakra
+install dapper
+
+JWT claims
+
+
+comandos para compilar
+dotnet run (linux)
+f5 windows community server ide

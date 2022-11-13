@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 08-11-2022 a las 23:40:45
+-- Servidor: localhost
+-- Tiempo de generación: 13-11-2022 a las 22:42:25
 -- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 7.4.30
+-- Versión de PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
   `content` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `post_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,12 +39,11 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`id`, `content`, `user_id`, `post_id`) VALUES
-(1, 'LOREPIASDHASFHJPFJAPdSAD', 3, 9),
-(2, 'lo q sea x2', 3, 9),
-(3, 'asfsdfsdf\r\n\r\njejejej', 2, 9),
-(4, 'lolololollol', 5, 10),
-(5, 'wowlwowolwlowolw', 10, 4),
-(7, 'HOLA ESTE ES EL COMENTARIO DEL POST 17 DEL USUARIO 6, manejalo', 6, 17);
+(51, 'hola', 2, 10),
+(52, 'soy pepe', 2, 10),
+(58, 'hola soy capo, y saque esto con localstorage, me falta el reverse de mierda', 2, 10),
+(59, '', 2, 10),
+(60, '', 2, 10);
 
 -- --------------------------------------------------------
 
@@ -67,18 +66,22 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`id`, `title`, `content`, `submit_date`, `pending_approval`, `approve_date`, `user_id`) VALUES
-(4, 'SEGUNDO POST', 'SEGUNDO POST', '0000-00-00', 2, '2022-11-07', 5),
-(9, 'post post post', 'post post post', '0000-00-00', 1, '2022-11-07', 6),
-(10, 'post post postq32421vsdf', 'sdfsdfsdfdsfsdf', '0000-00-00', 0, '2022-11-07', 12),
-(12, 'TEST EDIT', 'ACA VA UN RE POST RE COPADO CON UN MONTON DE INFO Q ACABO DE EDITAR NO SABES CHABON!!!!', '2022-11-07', 0, NULL, 3),
-(13, 'TEST EDIT', 'ACA VA UN RE POST RE COPADO CON UN MONTON DE INFO Q ACABO DE EDITAR NO SABES CHABON!!!!', '2022-11-07', 0, NULL, 3),
-(14, 'TITULO DEL POST', 'CONTENIDO DEL POST', '2022-11-07', 0, NULL, 3),
-(15, 'TESTEEEEEEE EDIT', 'ACA VA UN RE POST RE COPADO CON UN MONTON DE INFO Q ACABO DE EDITAR NO SABES CHABON!!!!', '2022-11-07', 0, NULL, 3),
-(16, 'TITULO DEL POST', 'CONTENIDO DEL POST', '2022-11-07', 0, NULL, 3),
-(17, 'TITULO DEL POST', 'CONTENIDO DEL POST', '2022-11-07', 0, NULL, 3),
-(18, 'TEST EDIT', 'ACA VA UN RE POST RE COPADO CON UN MONTON DE INFO Q ACABO DE EDITAR NO SABES CHABON!!!!', '2022-11-07', 0, NULL, 3),
-(19, 'TEST EDIT', 'ACA VA UN RE POST RE COPADO CON UN MONTON DE INFO Q ACABO DE EDITAR NO SABES CHABON!!!!', '0000-00-00', 0, NULL, 3),
-(20, 'TITULO DEL POST', 'CONTENIDO DEL POST', '2022-11-07', 0, NULL, 3);
+(9, 'post post post', 'post post post', '0000-00-00', 1, '2022-11-09', 6),
+(10, 'post post postq32421vsdf', 'sdfsdfsdfdsfsdf', '0000-00-00', 2, '2022-11-13', 12),
+(12, 'GGGGGGGGGGGGGGG', 'G', '2022-11-10', 2, '2022-11-13', 3),
+(13, 'TEST EDIT', 'ACA VA UN RE POST RE COPADO CON UN MONTON DE INFO Q ACABO DE EDITAR NO SABES CHABON!!!!', '2022-11-07', 2, '2022-11-13', 3),
+(14, 'TITULO DEL POST', 'CONTENIDO DEL POST', '2022-11-07', 0, '2022-11-13', 3),
+(15, 'DAPPER EDIT', 'EEDDDIT WITH DAPPER11!!', '0001-01-01', 0, '2022-11-13', 3),
+(16, 'edito DE NUEVO CON DAPPER', 'A VER ESA FECHITA DAPPER', '2022-11-13', 0, '2022-11-13', 3),
+(17, 'TITULO DEL POST', 'CONTENIDO DEL POST', '2022-11-07', 0, '2022-11-13', 3),
+(18, 'TEST EDIT', 'ACA VA UN RE POST RE COPADO CON UN MONTON DE INFO Q ACABO DE EDITAR NO SABES CHABON!!!!', '2022-11-07', 0, '2022-11-13', 3),
+(19, 'TEST EDIT', 'ACA VA UN RE POST RE COPADO CON UN MONTON DE INFO Q ACABO DE EDITAR NO SABES CHABON!!!!', '0000-00-00', 0, '2022-11-13', 3),
+(24, 'esto anda bien ejej', 'jeejje', '2022-11-12', 0, '2022-11-13', 2),
+(25, 'dapperdapper', 'dappppeeeeeeeeeerrrrrrrrrrrrrrr', '0001-01-01', 0, '2022-11-13', 3),
+(26, 'a ver dappper con las fechas', 'dapper y fechas', '0001-01-01', 2, '2022-11-13', 3),
+(27, 'asdad', 'fsfdsdf', '0001-01-01', 2, '2022-11-13', 3),
+(28, 'DAAAPPPERR', 'DAAAPPPER OLE OLE', '2022-11-13', 0, '2022-11-13', 3),
+(29, 'dapper esta bueno me gusta dapper', 'dapper dapper ole ole', '2022-11-13', 0, '2022-11-13', 3);
 
 -- --------------------------------------------------------
 
@@ -100,19 +103,21 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `nombre`, `email`, `password`, `role`) VALUES
 (1, '', 'pm.gonzaalez@gmail.com', 'sarasa09', 0),
-(2, '', 'p@p.com', 'sarasa09', 1),
-(3, '', 'p@g.com', 'sarasa09', 2),
+(2, 'CAPO', 'p@p.com', 'sarasa09', 1),
+(3, 'GSU', 'p@g.com', 'sarasa09', 2),
 (4, '', 'pablo@gonzalez.com', 'sarasa09', 0),
-(5, '', 'email@email.com', 'sarasa09', 1),
-(6, '', 'hola@hola.com', 'sarasa09', 1),
+(5, 'Pablo', 'email@email.com', 'sarasa09', 1),
+(6, 'MARCOS', 'hola@hola.com', 'sarasa09', 1),
 (7, '', 'cake@cake.com', 'sarasa09', 2),
 (8, '', 'm@m.com', 'sarasa09', 1),
 (9, '', 'g@g.com', 'sarasa09', 1),
 (10, '', 'l@lol.com', 'sarasa09', 2),
 (11, '', 'ultimo@u.com', 'sarasa09', 1),
-(12, '', 'asd@asd.com', 'sarasa09', 2),
+(12, 'catriel', 'asd@asd.com', 'sarasa09', 2),
 (13, '', '', '', 2),
-(14, '', 'test@test.com', 'sarasa09', 2);
+(14, '', 'test@test.com', 'sarasa09', 2),
+(16, 'Jose', 'j@j.com', 'sarasa09', 2),
+(18, 'Joise', 'ggg@ggg.com', 'sarasa09', 2);
 
 --
 -- Índices para tablas volcadas
@@ -148,19 +153,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT de la tabla `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas

@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,7 +15,7 @@ builder.Services.AddSwaggerGen(c =>{
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Aoniken Api", Version = "v1" }); 
 });
 
-//addCors
+//ADD CORS
 var proveedor = builder.Services.BuildServiceProvider(); 
 var configuration = proveedor.GetRequiredService<IConfiguration>();
 
@@ -32,7 +31,7 @@ builder.Services.AddCors(options =>
 });
 
 
-// implementacion de JWT y valida segun los parametros del appsettings.json
+//IMPLEMENTACION DE JWT Y VALIDA SEGUN LOS PARAMETROS DEL appsettings.json
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
@@ -44,11 +43,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-
     };
 });
 
-// conexion a la db
+//CONEXION A LA DB
 var MySQLConfiguration = new MySQLConfiguration(builder.Configuration.GetConnectionString("MySqlConnection"));
 builder.Services.AddSingleton(MySQLConfiguration);
 
@@ -63,10 +61,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-// implementa la autenticacion
+
+
+//IMPLEMENTA LA AUTENTICACION
 app.UseAuthentication();
 
-//implementa cors
+//IMPLEMENTA CORS
 app.UseCors();
 
 app.UseAuthorization();

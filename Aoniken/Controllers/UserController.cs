@@ -38,7 +38,7 @@ namespace Aoniken.Controllers
             //HAGO LA CONEXION A LA DB
             var db = dbConnection();
             //HAGO LA CONSULTA UTILIZANDO PARAMETROS
-            var sql = @"SELECT id,email,role FROM user WHERE email = @email AND password = @password";
+            var sql = @"SELECT * FROM user WHERE email = @email AND password = @password";
             //RETORNO CON DAPPER UTILIZANDO PARAMETROS
             var usuario = db.QueryFirstOrDefaultAsync(sql, user);
 
@@ -87,6 +87,7 @@ namespace Aoniken.Controllers
                 message = "exito",
                 id = usuario.Result.id,
                 role = usuario.Result.role,
+                nombre = usuario.Result.nombre,
                 //MANDO EL RESULTADO CON EL TOKEN VALIDO
                 result = new JwtSecurityTokenHandler().WriteToken(token)
             };

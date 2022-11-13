@@ -11,7 +11,6 @@ namespace Aoniken.Models
 
 
         // verificar el token
-
         public static dynamic validateToken(ClaimsIdentity identity)
 
         {

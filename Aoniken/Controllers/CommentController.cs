@@ -38,7 +38,7 @@ namespace Aoniken.Controllers
             //HAGO UN INSERT A LA DB UTILIZANDO PARAMETROS
             var sql = @"INSERT INTO comment (content, user_id, post_id) 
                         VALUES(@content, @user_id, @post_id)";
-            //EJECUTO CON DAPPER UTILIZANDO EL MODELO POST
+            //EJECUTO CON DAPPER UTILIZANDO EL MODELO
             var insert = db.Execute(sql, comment);
 
             //RETORNO SUCCESS PARA EL FRONT
@@ -50,21 +50,44 @@ namespace Aoniken.Controllers
             };
         }
 
+        //ENDPOINT PARA LISTAR 
         [HttpPost]
         [Route("list_comments")]
         public dynamic getComments([FromBody] Object optData)
         {
-
+            //DESERIALIZO EL OBJETO A UN JSON
             var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
-
-            int id = data.id;
+            //HAGO LA CONEXION A LA DB
             var db = dbConnection();
-            var sql = @"select c.content, u.nombre from comment c inner join user u where c.user_id = u.id and post_id =" + id;
+            //HAGO UNA CONSULTA UTILIZANDO PARAMETROS
+            var sql = @"select * from post p 
+                        left join comment c 
+                        on p.id = c.post_id";
+            //RETORNO CON DAPPER UTILIZANDO PARAMETROS
 
-            //retorno con Dapper
-            return db.Query(sql);
+
+            var diccionarioPost = new Dictionary<int, Post>();
+
+            //ARMO UN LISTADO DE POSTS Y SUS COMMENTS PARA DEVOLVER AL FRONT
+            var listado = db.Query<Post, Comment, Post>(sql, (post, comment) =>
+            {
+                Post postTemp;
+
+                if (!diccionarioPost.TryGetValue(post.id, out postTemp))
+                {
+                    postTemp = post;
+                    postTemp.Comments = new List<Comment>();
+                    diccionarioPost.Add(postTemp.id, post);
+                }
+
+                if (comment != null)
+                {
+                    postTemp.Comments.Add(comment);
+                }
+                return postTemp;
+            }).Distinct().ToList();
+
+            return listado;
         }
-
-
     }
 }

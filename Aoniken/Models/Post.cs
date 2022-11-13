@@ -9,11 +9,13 @@ namespace Aoniken.Models
         public int user_id { get; set; }
         public string title { get; set; }
         public string content { get; set; }
-
         //puede recibir nulos
         public DateTime? approve_date { get; set; }
         public DateTime submit_date { get; set; }
         public int pending_approval { get; set; }
+        public List<Comment>Comments {get; set;}
+
+
 
     }
 }

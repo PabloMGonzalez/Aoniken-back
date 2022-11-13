@@ -13,7 +13,7 @@ namespace Aoniken.Controllers
     [Route("post")]
     public class PostController : ControllerBase
     {
-        //REFERENCO A LA DB PARA PODER USARLA
+        //REFERENCIO A LA DB PARA PODER USARLA
         #region 
         private readonly MySQLConfiguration _connectionString;
         public PostController(MySQLConfiguration connectionString)
@@ -138,7 +138,7 @@ namespace Aoniken.Controllers
             //EJECUTO CON DAPPER UTILIZANDO EL MODELO POST
             var insert = db.Execute(sql, post);
 
-            //RETORNO SUCCES PARA EL FRONT
+            //RETORNO SUCCESS PARA EL FRONT
             return new
             {
                 success = true,

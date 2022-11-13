@@ -13,54 +13,42 @@ namespace Aoniken.Controllers
     [Route("comment")]
     public class CommentController : ControllerBase
     {
-        // referencio a la db
+        //REFERENCIO A LA DB PARA PODER USARLA
         #region 
         private readonly MySQLConfiguration _connectionString;
-
         public CommentController(MySQLConfiguration connectionString)
         {
             _connectionString = connectionString;
         }
-
         protected MySqlConnection dbConnection()
         {
             return new MySqlConnection(_connectionString.ConnectionString);
         }
         #endregion
 
+
+        //ENDPOINT PARA CREAR COMENTARIOS
         [HttpPost]
         [Route("create_comment")]
-        [Authorize]
 
-        public dynamic saveComment([FromBody] Object optData)
+        public dynamic saveComment(Comment comment)
         {
-            //autentico con el token y miro el rol
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var rToken = Jwt.validateToken(identity);
-            if (!rToken.success)
-                return rToken;
-            User usuario = rToken.result;
-
-            var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
-
-            int user_id = data.user_id;
-            int post_id = data.post_id;
-
-            string content = data.content;
-
-            var submit_date = DateTime.Today.ToString("yyyy-MM-dd");
-
+            //HAGO LA CONEXION A LA DB
             var db = dbConnection();
-            var sql = @"INSERT INTO comment (content, user_id, post_id) VALUES('"+content+"', "+user_id+", "+post_id+")";
-            var insert = db.Execute(sql);
+            //HAGO UN INSERT A LA DB UTILIZANDO PARAMETROS
+            var sql = @"INSERT INTO comment (content, user_id, post_id) 
+                        VALUES(@content, @user_id, @post_id)";
+            //EJECUTO CON DAPPER UTILIZANDO EL MODELO POST
+            var insert = db.Execute(sql, comment);
 
+            //RETORNO SUCCESS PARA EL FRONT
             return new
             {
                 success = true,
                 message = "el comentario se creo con éxito",
                 result = ""
             };
-        }  
+        }
 
         [HttpPost]
         [Route("list_comments")]
@@ -76,7 +64,7 @@ namespace Aoniken.Controllers
             //retorno con Dapper
             return db.Query(sql);
         }
-    
+
 
     }
 }

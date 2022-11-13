@@ -26,8 +26,6 @@ namespace Aoniken.Controllers
         }
         #endregion
 
-
-        //ENDPOINT HOME LISTA LOS POST APROBADOS
         [HttpGet]
         [Route("list_approved_posts")]
         public dynamic listPostsApproved()
@@ -39,6 +37,38 @@ namespace Aoniken.Controllers
             //RETORNO CON DAPPER
             return db.Query(sql);
         }
+
+        //ENDPOINT HOME LISTA LOS POST APROBADOS
+        // [HttpGet]
+        // [Route("list_approved_posts")]
+        // public dynamic listPostsApproved()
+        // {          
+        //     //HAGO LA CONEXION A LA DB
+        //     var db = dbConnection();
+        //     //HAGO UNA CONSULTA UTILIZANDO PARAMETROS
+        //     var sql = @"select * from post p 
+        //                     left join comment c 
+        //                     on p.id = c.post_id";
+        //     //RETORNO CON DAPPER UTILIZANDO PARAMETROS
+        //     var diccionarioPost = new Dictionary<int, Post>();
+        //     //ARMO UN LISTADO DE POSTS Y SUS COMMENTS PARA DEVOLVER AL FRONT
+        //     var listado = db.Query<Post, Comment, Post>(sql, (post, comment) =>
+        //     {
+        //         Post postTemp;
+        //         if (!diccionarioPost.TryGetValue(post.id, out postTemp))
+        //         {
+        //             postTemp = post;
+        //             postTemp.Comments = new List<Comment>();
+        //             diccionarioPost.Add(postTemp.id, post);
+        //         }
+        //         if (comment != null)
+        //         {
+        //             postTemp.Comments.Add(comment);
+        //         }
+        //         return postTemp;
+        //     }).Distinct().ToList();
+        //     return listado;
+        // }
 
 
         //ENDPOINT CON AUTORIZACION LISTA POST PENDIENTES DE APROBAR, SOLO LO VE EL EDITOR

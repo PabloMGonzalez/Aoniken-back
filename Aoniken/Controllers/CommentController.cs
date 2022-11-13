@@ -50,44 +50,18 @@ namespace Aoniken.Controllers
             };
         }
 
-        //ENDPOINT PARA LISTAR 
-        [HttpPost]
+        //ENDPOINT PARA POST Y COMENTARIOS
+        [HttpGet]
         [Route("list_comments")]
-        public dynamic getComments([FromBody] Object optData)
+        public dynamic getComments()
         {
-            //DESERIALIZO EL OBJETO A UN JSON
-            var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
             //HAGO LA CONEXION A LA DB
             var db = dbConnection();
             //HAGO UNA CONSULTA UTILIZANDO PARAMETROS
-            var sql = @"select * from post p 
-                        left join comment c 
-                        on p.id = c.post_id";
+            var sql = @"select c.content, p.id, u.nombre from comment c inner join post p on c.post_id = p.id left join user u on c.user_id = u.id;";
             //RETORNO CON DAPPER UTILIZANDO PARAMETROS
-
-
-            var diccionarioPost = new Dictionary<int, Post>();
-
-            //ARMO UN LISTADO DE POSTS Y SUS COMMENTS PARA DEVOLVER AL FRONT
-            var listado = db.Query<Post, Comment, Post>(sql, (post, comment) =>
-            {
-                Post postTemp;
-
-                if (!diccionarioPost.TryGetValue(post.id, out postTemp))
-                {
-                    postTemp = post;
-                    postTemp.Comments = new List<Comment>();
-                    diccionarioPost.Add(postTemp.id, post);
-                }
-
-                if (comment != null)
-                {
-                    postTemp.Comments.Add(comment);
-                }
-                return postTemp;
-            }).Distinct().ToList();
-
-            return listado;
+            return db.Query(sql);
+       
         }
     }
 }

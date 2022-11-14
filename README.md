@@ -105,4 +105,5 @@ y volver a correr
 *faltan agregar*
 
 ###DIAGRAMA
+
 ![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/diagrama.png?raw=true)

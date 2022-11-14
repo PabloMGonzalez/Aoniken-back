@@ -1,6 +1,6 @@
 # Aoniken blog backend
 
-**Aoniken blog backend** es la solución a un challenge hecho por la compañia **Aoniken** 
+**Aoniken blog backend** es la solución a un challenge hecho para la compañia **Aoniken** 
 la **API** esta realizada en NetCore 6 C#, utilizando como base de datos MySQL, Dapper como mini ORM para que no haya SQL injections y autenticación via Jason Web Token (JWT)
 
 ## Prerrequisitos para su funcionamiento
@@ -49,7 +49,7 @@ y volver a correr
 #### 6º Paso solucionar problemas con SSL
 1. Ingresar a la api  desde http://localhost:5020/WeatherForecast y configurar para que no tome los SSL
 
-#### 7* Paso Instalar Postman para probar la API
+#### 7º Paso Instalar Postman para probar la API
 1. Bajar e instalar Postman https://dl.pstmn.io/download/latest/linux64
 2. Loguearse al endpoint http:localhost:5020/user/login con el siguiente cuerpo
 <pre>
@@ -61,3 +61,49 @@ y volver a correr
 3. Copiar el result y copiarlo en el Header de los demas End Points para probarlos.
 
 ### END POINTS
+
+#####USERS
+
+/user/login
+<pre>
+{
+    "email":"string",
+    "password":"string"
+}
+</pre>
+/user/register
+<pre>
+{
+    "nombre":"string",
+    "email":"string",
+    "password":"string"
+}
+</pre>
+
+#####POSTS
+
+/post/list_approved_posts
+<pre>
+{
+}
+</pre>
+/post/list_pending_approval_posts
+<pre>
+{
+}
+</pre>
+/post/ListUnapprovedPosts
+<pre>
+{
+}
+</pre>
+
+#####COMMENTS
+
+*faltan agregar*
+
+###DIAGRAMA
+*archivo o foto drawio aca*
+
+
+

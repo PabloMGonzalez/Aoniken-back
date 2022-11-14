@@ -64,7 +64,7 @@ y volver a correr
 
 ### END POINTS
 
-#####USERS
+##### USER
 
 /user/login
 <pre>
@@ -82,7 +82,7 @@ y volver a correr
 }
 </pre>
 
-#####POSTS
+##### POSTS
 
 /post/list_approved_posts
 <pre>
@@ -100,7 +100,7 @@ y volver a correr
 }
 </pre>
 
-#####COMMENTS
+##### COMMENTS
 
 *faltan agregar*
 

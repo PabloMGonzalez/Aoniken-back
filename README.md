@@ -104,6 +104,19 @@ y volver a correr
 
 *faltan agregar*
 
-###DIAGRAMA
+#### DIAGRAMA
 
 ![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/diagrama.png?raw=true)
+
+#### SOFTWARE UTILIZADO
+- NetCore 6 C#
+- Dapper
+- Authentication.JwtBearer
+- Newtonsoft.Json
+- MySQL
+- Swagger
+- Visual Studio Community
+- Visual Studio Code
+- phpMyAdmin
+- Postman
+- Chrome

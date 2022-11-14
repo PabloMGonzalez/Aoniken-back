@@ -33,6 +33,8 @@ y volver a correr
 1. Entrar a http://localhost/phpmyadmin/ y crear una Base de Datos llamada **aonikendb**
 2. Una vez hecha la BD importar desde http://localhost/phpmyadmin/,  el archivo **aonikendb.sql** que se encuentra en el repositorio, con el se crean todas las tablas y registros
 
+![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/aoniken1.png?raw=true)
+
 *imagenes van aca*
 
 #### 4º Paso Dependencias de NetCore 6

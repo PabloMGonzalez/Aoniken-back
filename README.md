@@ -46,7 +46,7 @@ y volver a correr
 2. Luego para poner compilar y conectar con el servidor correr el siguiente comando
 <pre>dotnet run</pre>
 
-*imagenes van aca*
+![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/aoniken4.png?raw=true)
 
 #### 6º Paso solucionar problemas con SSL
 1. Ingresar a la api  desde http://localhost:5020/WeatherForecast y configurar para que no tome los SSL
@@ -105,7 +105,4 @@ y volver a correr
 *faltan agregar*
 
 ###DIAGRAMA
-*archivo o foto drawio aca*
-
-
-
+![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/diagrama.png?raw=true)

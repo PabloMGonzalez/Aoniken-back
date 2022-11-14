@@ -43,7 +43,7 @@ y volver a correr
 #### 5º Paso Ejecutar la API
 1. Ingresar a donde se creo el repositorio y correr el siguiente comando
 <pre>cd Aoniken-back/Aoniken</pre>
-2. Luego para poner compilar y conectar con el servidor correr el siguiente comando
+2. Luego para poder compilar y conectar con el servidor correr el siguiente comando
 <pre>dotnet run</pre>
 
 ![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/aoniken4.png?raw=true)
@@ -53,6 +53,44 @@ y volver a correr
 
 #### 7º Paso Instalar Postman para probar la API
 1. Bajar e instalar Postman https://dl.pstmn.io/download/latest/linux64
+2. Loguearse al endpoint http:localhost:5020/user/login con el siguiente cuerpo
+<pre>
+{
+    	"email":"string",
+    	"password":"string"
+}
+</pre>
+3. Copiar el result y copiarlo en el Header de los demas End Points para probarlos.
+
+
+## Instalación en Windows
+
+#### 1º Paso Repositorio
+1. Entrar En Visual Studio Community click en *Clone a Repository*
+2. Copiar el repositorio https://github.com/PabloMGonzalez/Aoniken-back.git en *Repository Location*
+3. Elegir en que carpeta se va a clonar y click en *Clone*
+
+![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/aoniken5.png?raw=true)
+![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/aoniken6.png?raw=true)
+
+#### 2º Paso Xampp
+1. Insalar Xampp, del siguiente link [como instalar Xampp en Windows](https://www.neoguias.com/instalar-xampp-linux-mint/ "como instalar Xampp")
+2. Abrirlo luego click en *start* en apache y mysql para iniciar el servidor y la db
+
+![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/aoniken7.png?raw=true)
+
+#### 3º Paso Crear BD
+> Ver paso 3 de como crearla en Linux
+
+#### 4º Paso Ejecutar la API
+1. Con Visual Studio Community ya abierto con el repositorio clonado presionar F5, para compilar y conectar con el servidor
+2. **(opcional)** Swagger UI se abrira mostrando la api, desde aca se pueden hacer pruebas sin la necesidad de Postman
+
+#### 5º Paso solucionar problemas con SSL
+1. Ingresar a la api desde http://localhost:5020/WeatherForecast y configurar para que no tome los SSL
+
+#### 6º Paso Instalar Postman para probar la API
+1. Bajar e instalar Postman https://dl.pstmn.io/download/latest/win64
 2. Loguearse al endpoint http:localhost:5020/user/login con el siguiente cuerpo
 <pre>
 {

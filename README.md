@@ -5,7 +5,7 @@ la **API** esta realizada en NetCore 6 C#, utilizando como base de datos MySQL, 
 
 ## Prerrequisitos para su funcionamiento
 1. Windows o Linux
-2. Visual Studio Community (recomendado) o Visual Studio Code
+2.  Visual Studio Community (recomendado) o Visual Studio Code
 3. Xampp para poner en funcionamiento la Base de Datos
 4. Git
 5. Chrome, Firefox, etc.
@@ -15,4 +15,4 @@ la **API** esta realizada en NetCore 6 C#, utilizando como base de datos MySQL, 
 #### 1º Paso
 Clonar el repositorio en la maquina local
 
-1. git clone https://github.com/PabloMGonzalez/Aoniken-back.git
+    git clone  https://github.com/PabloMGonzalez/Aoniken-back.git

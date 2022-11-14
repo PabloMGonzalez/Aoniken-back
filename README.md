@@ -261,7 +261,7 @@ pending_approval 2 = se aprobó</pre>
 - phpMyAdmin
 - Postman
 - Chrome
-- Draw.io
+- draw.io
 
 
 **Horas requeridas:** 80 aprox

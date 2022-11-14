@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/home/pablo/proyectos/aoniken/Aoniken-back/Aoniken/Aoniken.csproj": {}
+    "E:\\Aoniken\\Aoniken\\Aoniken.csproj": {}
   },
   "projects": {
-    "/home/pablo/proyectos/aoniken/Aoniken-back/Aoniken/Aoniken.csproj": {
+    "E:\\Aoniken\\Aoniken\\Aoniken.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/pablo/proyectos/aoniken/Aoniken-back/Aoniken/Aoniken.csproj",
+        "projectUniqueName": "E:\\Aoniken\\Aoniken\\Aoniken.csproj",
         "projectName": "Aoniken",
-        "projectPath": "/home/pablo/proyectos/aoniken/Aoniken-back/Aoniken/Aoniken.csproj",
-        "packagesPath": "/home/pablo/.nuget/packages/",
-        "outputPath": "/home/pablo/proyectos/aoniken/Aoniken-back/Aoniken/obj/",
+        "projectPath": "E:\\Aoniken\\Aoniken\\Aoniken.csproj",
+        "packagesPath": "C:\\Users\\Pablo\\.nuget\\packages\\",
+        "outputPath": "E:\\Aoniken\\Aoniken\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/pablo/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Pablo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -75,7 +81,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -87,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/dotnet6-6.0.110/sdk/6.0.110/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -73,6 +73,7 @@ y volver a correr
     "password":"string"
 }
 </pre>
+
 /user/register
 <pre>
 {
@@ -89,20 +90,111 @@ y volver a correr
 {
 }
 </pre>
+
+role 1 editor
 /post/list_pending_approval_posts
 <pre>
 {
 }
 </pre>
-/post/ListUnapprovedPosts
+
+role 2 writer
+/post/list_unapproved_posts
 <pre>
 {
 }
 </pre>
 
+/post/create_post
+<pre>
+{
+  "id": int,
+  "user_id": int,
+  "title": "string",
+  "content": "string",
+  "approve_date": "2022-11-14T18:59:56.673Z",
+  "submit_date": "2022-11-14T18:59:56.673Z",
+  "pending_approval": int,
+  "comments": [
+    {
+      "id": int,
+      "user_id": int,
+      "post_id": int,
+      "content": "string"
+    }
+  ]
+}
+</pre>
+
+role 2 writer
+/post/edit_post
+<pre>
+{
+  "id": int,
+  "user_id": int,
+  "title": "string",
+  "content": "string",
+  "approve_date": "2022-11-14T18:59:56.673Z",
+  "submit_date": "2022-11-14T18:59:56.673Z",
+  "pending_approval": int,
+  "comments": [
+    {
+      "id": int,
+      "user_id": int,
+      "post_id": int,
+      "content": "string"
+    }
+  ]
+}
+</pre>
+
+role 1 editor
+/post/delete_post
+<pre>
+{
+"id":int
+}
+</pre>
+
+role 1 editor
+/post/approve_post
+<pre>
+{
+"id":int
+}
+</pre>
+
+role 1 editor
+/post/reject_post
+<pre>
+{
+"id":int
+}
+</pre>
+
+/post/select_post
+<pre>
+{
+"id":int
+}
+</pre>
+
 ##### COMMENTS
 
-*faltan agregar*
+/comment/create_comment
+<pre>
+{
+  "user_id":int,
+  "post_id":int,
+  "content": "string"  
+}
+</pre>
+
+/comment/list_comments
+<pre>
+{
+}
+</pre>
 
 ### USER ROLES 
 <pre>role 0 = admin

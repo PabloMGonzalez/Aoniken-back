@@ -1,7 +1,7 @@
 # Aoniken blog backend
 
-**Aoniken blog backend** es la solución a un  challenge hecho por la compañia **Aoniken** 
-la **API** esta realizada en NetCore 6 C#, utilizando como base de datos MySQL,  Dapper como mini ORM para que no haya SQL injections y autenticación via Jason Web Token (JWT)
+**Aoniken blog backend** es la solución a un challenge hecho por la compañia **Aoniken** 
+la **API** esta realizada en NetCore 6 C#, utilizando como base de datos MySQL, Dapper como mini ORM para que no haya SQL injections y autenticación via Jason Web Token (JWT)
 
 ## Prerrequisitos para su funcionamiento
 1. Windows o Linux
@@ -12,15 +12,52 @@ la **API** esta realizada en NetCore 6 C#, utilizando como base de datos MySQL, 
 
 ## Instalación en Linux
 
-#### 1º Paso
+#### 1º Paso Repositorio
 Clonar el repositorio en la maquina local con la terminal
 
     git clone  https://github.com/PabloMGonzalez/Aoniken-back.git
 
-#### 2º Paso
-1. Insalar Xampp, del siguiente link [como instalar Xampp](https://www.neoguias.com/instalar-xampp-linux-mint/ "como instalar Xampp")
-2. una vez instalado correr los comandos:
+#### 2º Paso Xampp
+1. Insalar Xampp, del siguiente link [como instalar Xampp en Linux](https://www.neoguias.com/instalar-xampp-linux-mint/ "como instalar Xampp")
 
+2. Una vez instalado correr los comandos para poder iniciar el servidor apache y mysql:
 <pre> sudo apt install net-tools </pre>
 <pre> sudo /opt/lampp/lampp start</pre>
+3. Si apache tira error al conectarse utilizar el siguiente comando
+<pre>sudo apachectl stop</pre>
+y volver a correr
+<pre> sudo /opt/lampp/lampp start</pre>
 
+
+#### 3º Paso Crear BD
+1. Entrar a http://localhost/phpmyadmin/ y crear una Base de Datos llamada **aonikendb**
+2. Una vez hecha la BD importar desde http://localhost/phpmyadmin/,  el archivo **aonikendb.sql** que se encuentra en el repositorio, con el se crean todas las tablas y registros
+
+*imagenes van aca*
+
+#### 4º Paso Dependencias de NetCore 6
+1. Instalar las dependencias de NetCore C# para utilizarlo en Linux siguiendo este link: [como instalar dependencias de netcore para linux](https://learn.microsoft.com/es-es/dotnet/core/install/linux-scripted-manual#scripted-install "como instalar dependencias de netcore para linux")
+
+#### 5º Paso Ejecutar la API
+1. Ingresar a donde se creo el repositorio y correr el siguiente comando
+<pre>cd Aoniken-back/Aoniken</pre>
+2. Luego para poner compilar y conectar con el servidor correr el siguiente comando
+<pre>dotnet run</pre>
+
+*imagenes van aca*
+
+#### 6º Paso solucionar problemas con SSL
+1. Ingresar a la api  desde http://localhost:5020/WeatherForecast y configurar para que no tome los SSL
+
+#### 7* Paso Instalar Postman para probar la API
+1. Bajar e instalar Postman https://dl.pstmn.io/download/latest/linux64
+2. Loguearse al endpoint http:localhost:5020/user/login con el siguiente cuerpo
+<pre>
+{
+    	"email":"string",
+    	"password":"string"
+}
+</pre>
+3. Copiar el result y copiarlo en el Header de los demas End Points para probarlos.
+
+### END POINTS

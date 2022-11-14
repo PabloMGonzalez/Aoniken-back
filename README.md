@@ -10,9 +10,17 @@ la **API** esta realizada en NetCore 6 C#, utilizando como base de datos MySQL, 
 4. Git
 5. Chrome, Firefox, etc.
 
-## Instalación
+## Instalación en Linux
 
 #### 1º Paso
-Clonar el repositorio en la maquina local
+Clonar el repositorio en la maquina local con la terminal
 
     git clone  https://github.com/PabloMGonzalez/Aoniken-back.git
+
+#### 2º Paso
+1. Insalar Xampp, del siguiente link [como instalar Xampp](https://www.neoguias.com/instalar-xampp-linux-mint/ "como instalar Xampp")
+2. una vez instalado correr los comandos:
+
+<pre> sudo apt install net-tools </pre>
+<pre> sudo /opt/lampp/lampp start</pre>
+

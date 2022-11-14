@@ -262,3 +262,6 @@ pending_approval 2 = se aprobó</pre>
 - Postman
 - Chrome
 - Draw.io
+
+
+**Horas requeridas:** 80 aprox

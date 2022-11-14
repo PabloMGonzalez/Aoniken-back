@@ -120,3 +120,4 @@ y volver a correr
 - phpMyAdmin
 - Postman
 - Chrome
+- Draw.io

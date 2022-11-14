@@ -34,8 +34,8 @@ y volver a correr
 2. Una vez hecha la BD importar desde http://localhost/phpmyadmin/,  el archivo **aonikendb.sql** que se encuentra en el repositorio, con el se crean todas las tablas y registros
 
 ![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/aoniken1.png?raw=true)
-
-*imagenes van aca*
+![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/aoniken2.png?raw=true)
+![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/aoniken3.png?raw=true)
 
 #### 4º Paso Dependencias de NetCore 6
 1. Instalar las dependencias de NetCore C# para utilizarlo en Linux siguiendo este link: [como instalar dependencias de netcore para linux](https://learn.microsoft.com/es-es/dotnet/core/install/linux-scripted-manual#scripted-install "como instalar dependencias de netcore para linux")

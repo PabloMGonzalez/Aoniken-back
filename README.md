@@ -104,6 +104,17 @@ y volver a correr
 
 *faltan agregar*
 
+### USER ROLES 
+<pre>role 0 = admin
+role 1 = editor
+role 2 = writer</pre>  
+
+### POST PENDING APPROVAL
+<pre>pending_approval 0 = a la espera que se apruebe
+pending_approval 1 = no se aprobo, se puede volver a editar
+pending_approval 2 = se aprobó</pre>  
+
+
 #### DIAGRAMA
 
 ![alt text](https://github.com/PabloMGonzalez/Aoniken-back/blob/main/diagrama.png?raw=true)

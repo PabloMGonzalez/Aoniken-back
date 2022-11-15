@@ -67,7 +67,7 @@ namespace Aoniken.Controllers
                 //HAGO LA CONEXION A LA DB
                 var db = dbConnection();
                 //HAGO LA CONSULTA
-                var sql = @"select p.id, p.title, p.content, p.submit_date, u.nombre from post p, user u where p.user_id = u.id and p.pending_approval = 0;";
+                var sql = @"select p.id, p.title, p.content, p.submit_date, u.nombre from post p, user u where p.user_id = u.id and p.pending_approval = 1;";
                 //RETORNO CON DAPPER
                 return db.Query(sql);
             }

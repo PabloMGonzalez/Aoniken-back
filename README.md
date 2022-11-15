@@ -239,7 +239,8 @@ pending_approval 2 = se aprobó</pre>
 - phpMyAdmin
 - Postman
 - Chrome
+- DBeaver
 - draw.io
 
 
-**Horas requeridas:** 80 aprox
+**Horas requeridas:** 80hs aprox

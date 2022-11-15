@@ -3,6 +3,7 @@ using Aoniken.Models;
 using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System.Security.Claims;
@@ -112,8 +113,7 @@ namespace Aoniken.Controllers
         [HttpPost]
         [Route("create_post")]
         [Authorize]
-        //RECIBO INFORMACION DESDE EL FRONT EN FORMA DE OBJETO POST
-        public dynamic savePost(Post post)
+        public dynamic savePost([FromBody] Object optData)
         {
             //ME AUTENTICO CON EL TOKEN Y LE ASIGNO EL TOKEN AL USUARIO
             var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -122,18 +122,17 @@ namespace Aoniken.Controllers
                 return rToken;
             User usuario = rToken.result;
 
-            //ASIGNO A SUBMIT DATE EL DIA DE HOY
-            post.submit_date = DateTime.Today;
-            //ASIGNO A APPROVE_DATE NULL
-            post.approve_date = null;
+            var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
 
-            //HAGO LA CONEXION A LA DB
+            string title = data.title;
+            string content = data.content;
+            var submit_date = DateTime.Today.ToString("yyyy-MM-dd");
+            int user_id = data.user_id;
+
             var db = dbConnection();
-            //HAGO UN INSERT A LA DB UTILIZANDO PARAMETROS
-            var sql = @"INSERT INTO post(title, content, submit_date, pending_approval, approve_date, user_id)
-                        VALUES(@title, @content, @submit_date, @pending_approval, @approve_date, @user_id)";
-            //EJECUTO CON DAPPER UTILIZANDO EL MODELO POST
-            var insert = db.Execute(sql, post);
+            var sql = @"INSERT INTO post(title, content, submit_date, user_id)    
+                        VALUES(@title, @content, @submit_date, @user_id)";
+            var insert = db.Execute(sql, new { title = title, content = content, submit_date = submit_date, user_id = user_id });
 
             //RETORNO SUCCESS PARA EL FRONT
             return new
@@ -142,6 +141,7 @@ namespace Aoniken.Controllers
                 message = "el post se creo con exito",
                 result = ""
             };
+
         }
 
 
@@ -149,7 +149,7 @@ namespace Aoniken.Controllers
         [HttpPost]
         [Route("edit_post")]
         [Authorize]
-        public dynamic editPost(Post post)
+        public dynamic editPost([FromBody] Object optData)
         {
             //ME AUTENTICO CON EL TOKEN Y LE ASIGNO EL TOKEN AL USUARIO
             var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -170,15 +170,24 @@ namespace Aoniken.Controllers
             }
             else
             {
+                var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
+
+                int id = data.id;
+                string title = data.title;
+                string content = data.content;
+
                 //ASIGNO A SUBMIT DATE EL DIA DE HOY
-                post.submit_date = DateTime.Today;
+                var submit_date = DateTime.Today.ToString("yyyy-MM-dd");
+                //submit_date = "'" + submit_date + "'";
 
                 //HAGO LA CONEXION A LA DB
                 var db = dbConnection();
                 //HAGO UN UPDATE A LA DB UTILIZANDO PARAMETROS
-                var sql = @"UPDATE post SET title=@title, content=@content, submit_date=@submit_date,pending_approval=0 WHERE id=@id";
+                var sql = @"UPDATE post SET title= @title, content=@content, submit_date=@submit_date, pending_approval=0 WHERE id=@id";
+
+
                 //EJECUTO CON DAPPER UTILIZANDO EL MODELO POST
-                var update = db.Execute(sql, post);
+                var update = db.Execute(sql, new {title=title, content=content, submit_date=submit_date, id=id});
 
                 //RETORNO SUCCES PARA EL FRONT
                 return new
@@ -188,7 +197,6 @@ namespace Aoniken.Controllers
                     result = ""
                 };
             }
-
         }
 
         //ENDPOINT CON AUTORIZACION PARA ELIMINAR POSTS

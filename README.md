@@ -146,21 +146,10 @@ role 2 writer
 /post/create_post
 <pre>
 {
-  "id": int,
   "user_id": int,
   "title": "string",
   "content": "string",
-  "approve_date": "2022-11-14T18:59:56.673Z",
-  "submit_date": "2022-11-14T18:59:56.673Z",
-  "pending_approval": int,
-  "comments": [
-    {
-      "id": int,
-      "user_id": int,
-      "post_id": int,
-      "content": "string"
-    }
-  ]
+  "submit_date": "2022-11-14T18:59:56.673Z"  
 }
 </pre>
 
@@ -168,21 +157,10 @@ role 2 writer
 /post/edit_post
 <pre>
 {
-  "id": int,
-  "user_id": int,
+  "id":int,
   "title": "string",
   "content": "string",
-  "approve_date": "2022-11-14T18:59:56.673Z",
-  "submit_date": "2022-11-14T18:59:56.673Z",
-  "pending_approval": int,
-  "comments": [
-    {
-      "id": int,
-      "user_id": int,
-      "post_id": int,
-      "content": "string"
-    }
-  ]
+  "submit_date": "2022-11-14T18:59:56.673Z"  
 }
 </pre>
 

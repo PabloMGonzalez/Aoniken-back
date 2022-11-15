@@ -86,7 +86,8 @@
 
   #### 4º Paso Ejecutar la API
   1. Con Visual Studio Community ya abierto con el repositorio clonado presionar F5, para compilar y conectar con el servidor
-  2. **(opcional)** Swagger UI se abrira mostrando la api, desde aca se pueden hacer pruebas sin la necesidad de Postman
+  2. Aceptar todos los certificados de SSL para conectar con el front
+  3. **(opcional)** Swagger UI se abrira mostrando la api, desde aca se pueden hacer pruebas sin la necesidad de Postman
 
   #### 5º Paso solucionar problemas con SSL
   1. Ingresar a la api desde http://localhost:5020/WeatherForecast y configurar para que no tome los SSL
